@@ -1,4 +1,4 @@
-import { PriorityQueue } from './优先队列';
+import { PriorityQueue } from '../STL/Data_Structures/Tree/PriorityQueue';
 
 //小顶堆
 const SmallestHeap = new PriorityQueue<number>([]);

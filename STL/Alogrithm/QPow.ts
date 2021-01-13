@@ -1,3 +1,5 @@
+import { PriorityQueue } from '../Data_Structures/Tree/PriorityQueue.ts';
+
 function qpow(a: number, n: number) {
 	let ans = 1;
 	while (n != 0) {
