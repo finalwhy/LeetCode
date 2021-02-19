@@ -5,10 +5,8 @@ export class PriorityQueue<T> {
 
 	constructor(arr?: T[], cmpFun?: Function) {
 		this.#heapArr = arr == undefined ? [] : [...arr];
-		this.#cmpFun =
-			cmpFun ??
-			((a: T, b: T): Boolean => a < b);
-		this.init();
+		this.#cmpFun = cmpFun ?? ((a: T, b: T): Boolean => a < b);
+		this.Heapify();
 	}
 
 	public count(): number {
@@ -45,14 +43,15 @@ export class PriorityQueue<T> {
 	}
 
 	//初始化队列，构架二叉堆
-	private init(): void {
+	private Heapify(): void {
+		//选取最后一个不是叶子节点的节点，从此开始依次下沉
 		let start = Math.floor((this.#heapArr.length - 2) / 2);
 		for (let i = start; i >= 0; i--) {
 			this.downAdjust(i);
 		}
 	}
 
-	//上浮操作
+	//上浮
 	private upAdjust(): void {
 		let childID = this.#heapArr.length - 1;
 		let parentID = Math.floor((childID - 1) / 2);
@@ -66,18 +65,21 @@ export class PriorityQueue<T> {
 		this.#heapArr[childID] = tmp;
 	}
 
-	//下沉操作
+	//下沉
 	private downAdjust(parentID: number): void {
 		let maxID = this.#heapArr.length - 1;
 		let childID = parentID * 2 + 1;
 		let tmp = this.#heapArr[parentID];
 
 		while (childID < maxID) {
-			if (childID + 1 <= maxID && this.#cmpFun(this.#heapArr[childID + 1], this.#heapArr[childID])) {
+			if (
+				childID + 1 <= maxID &&
+				this.#cmpFun(this.#heapArr[childID + 1], this.#heapArr[childID])
+			) {
 				childID += 1;
 			}
 
-			if (this.#cmpFun(tmp,this.#heapArr[childID])) break;
+			if (this.#cmpFun(tmp, this.#heapArr[childID])) break;
 
 			this.#heapArr[parentID] = this.#heapArr[childID];
 			parentID = childID;

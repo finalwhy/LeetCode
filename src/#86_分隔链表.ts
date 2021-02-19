@@ -1,4 +1,4 @@
-import { ListNode } from './leetcode_class';
+import { ListNode } from './DataClass';
 
 function partition(head: ListNode | null, x: number): ListNode | null {
 	if (head == null || head.next == null) return head;
